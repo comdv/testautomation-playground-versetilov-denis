@@ -21,9 +21,6 @@ describe('expected_conditions', () => {
         assert.equal(text2, 'See, you just clicked me!!');
     });
 
-
-
-
     it('Wait for text/value to have specific values', () => {
         browser.url('https://dineshvelhal.github.io/testautomation-playground/expected_conditions.html')
 
@@ -32,7 +29,7 @@ describe('expected_conditions', () => {
         const textPlace = $('#wait_for_value');
 
         triggerButton.click();
-
+        textButton.waitForEnabled({ timeout: 5000 });
         textButton.waitUntil(function () {
             return this.getText() === 'Submit'
         }, {
@@ -50,10 +47,8 @@ describe('expected_conditions', () => {
 
         var text1 = textButton.getText();
         var text2 = textPlace.getText();
-        assert.equal(text1, 'SUBMIT');
+        assert.equal(text1, 'Submit');
         assert.equal(text2, 'Dennis Ritchie');
-        textButton.isExist();
-        browser.pause(100000);
     });
 });
 
@@ -70,8 +65,20 @@ describe('mouse events ', () => {
         var text = target.getText();
         assert.equal(text, 'Drop is successful!');
 
-        console.log(target);
-        browser.pause(10000);
+    });
+
+    it('Mouse Hover', () => {
+        browser.url('https://dineshvelhal.github.io/testautomation-playground/mouse_events.html')
+
+        const button = $('button[class="dropbtn]');
+        const p_text = $('#dd_java');
+        const reaction_text = $('#hover_validate');
+        $('button[class="dropbtn]').moveTo()
+        $('#dd_java').moveTo()
+        p_text.click();
+        reactionTextPopup.getText();
+        var text = reaction_text.getText();
+        assert.equal(text, 'Java');
     });
 
 
@@ -89,22 +96,20 @@ describe('mouse events ', () => {
         browser.url('https://dineshvelhal.github.io/testautomation-playground/mouse_events.html')
 
         const click_area = $('#click_area');
-        click_area.click({button: 'right'})
+        click_area.click({ button: 'right' })
         const click_span = $('#click_type');
         var text = click_span.getText();
         assert.equal(text, 'Right-Click');
     });
 
-    it('Mouse Hover', () => {
+    it('Mouse Click Actions (double click)', () => {
         browser.url('https://dineshvelhal.github.io/testautomation-playground/mouse_events.html')
 
-    // const button = $('button[class="dropbtn]');
-    // const p_text = $('#dd_java');
-        const reaction_text = $('#hover_validate');
-        $('button[class="dropbtn]').MoveTo();
-        $('#dd_java').click();
-        reactionTextPopup.getText();
-        var text = reaction_text.getText();
-        assert.equal(text, 'Java');
+        const click_area = $('#click_area');
+        click_area.doubleClick()
+        const click_span = $('#click_type');
+        var text = click_span.getText();
+        assert.equal(text, 'Double-Click');
     });
+
 }); 
